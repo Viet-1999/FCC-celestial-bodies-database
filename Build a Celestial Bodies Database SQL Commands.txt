@@ -13,7 +13,7 @@ CREATE TABLE galaxy(
     star_id INTEGER  NOT NULL,
     name VARCHAR(20) UNIQUE NOT NULL,
 	age_in_millions_of_years NUMERIC,
-	distance_from_earth INTEGER.
+	distance_from_earth INTEGER,
 	has_life BOOLEAN,
 	is_spherical BOOLEAN
 );
@@ -31,8 +31,8 @@ CREATE TABLE star(
 
 CREATE TABLE planet(
 	planet_id SERIAL NOT NULL,
-    star_id INTEGER  NOT NULL,
-    moon_id INTEGER  NOT NULL,
+    star_id INTEGER NOT NULL,
+    moon_id INTEGER NOT NULL,
     name VARCHAR(20) UNIQUE NOT NULL,
 	age_in_millions_of_years NUMERIC,
 	distance_from_earth INTEGER,
@@ -50,9 +50,30 @@ CREATE TABLE moon(
 	is_spherical BOOLEAN
 );
 
-CREATE TABLE more_info(
-	more_info_id SERIAL NOT NULL,
-    object_id INTEGER,
+CREATE TABLE galaxy_info(
+	galaxy_info_id SERIAL NOT NULL,
+    galaxy_id INTEGER NOT NULL,
+	name VARCHAR(20) UNIQUE NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE star_info(
+	star_info_id SERIAL NOT NULL,
+    star_id INTEGER NOT NULL,
+	name VARCHAR(20) UNIQUE NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE planet_info(
+	planet_info_id SERIAL NOT NULL,
+    planet_id INTEGER NOT NULL,
+	name VARCHAR(20) UNIQUE NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE moon_info(
+	moon_info_id SERIAL NOT NULL,
+    moon_id INTEGER NOT NULL,
 	name VARCHAR(20) UNIQUE NOT NULL,
     description TEXT
 );
@@ -61,36 +82,6 @@ CREATE TABLE more_info(
 3. Fill the tables as required data conditions
 ------------------------------------------------------------
 INSERT INTO galaxy VALUES
-(1, 1, 'galaxy1', 4600, 148.21, true, true),
-(2, 2, 'galaxy2', 4600, 148.21, true, true),
-(3, 3, 'galaxy3', 4600, 148.21, true, true),
-(4, 4, 'galaxy4', 4600, 148.21, true, true),
-(5, 5, 'galaxy5', 4600, 148.21, true, true),
-(6, 6, 'galaxy6', 4600, 148.21, true, true)
-
-INSERT INTO star VALUES
-(1, 1, 1, 'star1', 4600, 148.21, true, true),
-(2, 2, 2, 'star2', 4600, 148.21, true, true),
-(3, 3, 3, 'star3', 4600, 148.21, true, true),
-(4, 4, 4, 'star4', 4600, 148.21, true, true),
-(5, 5, 5, 'star5', 4600, 148.21, true, true),
-(6, 6, 6, 'star6', 4600, 148.21, true, true)
-
-INSERT INTO planet VALUES
-(1, 1, 1, 'star1', 4600, 148.21, true, true,),
-(2, 2, 2, 'star2', 4600, 148.21, true, true),
-(3, 3, 3, 'star3', 4600, 148.21, true, true),
-(4, 4, 4, 'star4', 4600, 148.21, true, true,),
-(5, 5, 5, 'star5', 4600, 148.21, true, true,),
-(6, 6, 6, 'star6', 4600, 148.21, true, true,),
-(7, 7, 7, 'star7', 4600, 148.21, true, true,),
-(8, 8, 8, 'star8', 4600, 148.21, true, true,),
-(9, 9, 9, 'star9', 4600, 148.21, true, true),
-(10, 10, 10, 'star10', 4600, 148.21, true, true),
-(11, 11, 11, 'star11', 4600, 148.21, true, true),
-(12, 12, 12, 'star12', 4600, 148.21, true, true)
-
-INSERT INTO moon VALUES 
 (1, 1, 'galaxy1', 4600, 148.21, true, true),
 (2, 2, 'galaxy2', 4600, 148.21, true, true),
 (3, 3, 'galaxy3', 4600, 148.21, true, true),
@@ -110,32 +101,187 @@ INSERT INTO moon VALUES
 (17, 17, 'galaxy17', 4600, 148.21, true, true),
 (18, 18, 'galaxy18', 4600, 148.21, true, true),
 (19, 19, 'galaxy19', 4600, 148.21, true, true),
-(20, 20, 'galaxy20', 4600, 148.21, true, true)
+(20, 20, 'galaxy20', 4600, 148.21, true, true);
 
-INSERT INTO more_info VALUES
-(1, 1, 'name1', 'description1'),
-(2, 2, 'name2', 'description2'),
-(3, 3, 'name3', 'description3'),
-(4, 4, 'name4', 'description4'),
-(5, 5, 'name5', 'description5')
+INSERT INTO star VALUES
+(1, 1, 1, 'star1', 4600, 148.21, true, true),
+(2, 2, 2, 'star2', 4600, 148.21, true, true),
+(3, 3, 3, 'star3', 4600, 148.21, true, true),
+(4, 4, 4, 'star4', 4600, 148.21, true, true),
+(5, 5, 5, 'star5', 4600, 148.21, true, true),
+(6, 6, 6, 'star6', 4600, 148.21, true, true),
+(7, 7, 7, 'star7', 4600, 148.21, true, true),
+(8, 8, 8, 'star8', 4600, 148.21, true, true),
+(9, 9, 9, 'star9', 4600, 148.21, true, true),
+(10, 10, 10, 'star10', 4600, 148.21, true, true),
+(11, 11, 11, 'star11', 4600, 148.21, true, true),
+(12, 12, 12, 'star12', 4600, 148.21, true, true),
+(13, 13, 13, 'star13', 4600, 148.21, true, true),
+(14, 14, 14, 'star14', 4600, 148.21, true, true),
+(15, 15, 15, 'star15', 4600, 148.21, true, true),
+(16, 16, 16, 'star16', 4600, 148.21, true, true),
+(17, 17, 17, 'star17', 4600, 148.21, true, true),
+(18, 18, 18, 'star18', 4600, 148.21, true, true),
+(19, 19, 19, 'star19', 4600, 148.21, true, true),
+(20, 20, 20, 'star20', 4600, 148.21, true, true);
+
+INSERT INTO planet VALUES
+(1, 1, 1, 'planet1', 4600, 148.21, true, true),
+(2, 2, 2, 'planet2', 4600, 148.21, true, true),
+(3, 3, 3, 'planet3', 4600, 148.21, true, true),
+(4, 4, 4, 'planet4', 4600, 148.21, true, true),
+(5, 5, 5, 'planet5', 4600, 148.21, true, true),
+(6, 6, 6, 'planet6', 4600, 148.21, true, true),
+(7, 7, 7, 'planet7', 4600, 148.21, true, true),
+(8, 8, 8, 'planet8', 4600, 148.21, true, true),
+(9, 9, 9, 'planet9', 4600, 148.21, true, true),
+(10, 10, 10, 'planet10', 4600, 148.21, true, true),
+(11, 11, 11, 'planet11', 4600, 148.21, true, true),
+(12, 12, 12, 'planet12', 4600, 148.21, true, true),
+(13, 13, 13, 'planet13', 4600, 148.21, true, true),
+(14, 14, 14, 'planet14', 4600, 148.21, true, true),
+(15, 15, 15, 'planet15', 4600, 148.21, true, true),
+(16, 16, 16, 'planet16', 4600, 148.21, true, true),
+(17, 17, 17, 'planet17', 4600, 148.21, true, true),
+(18, 18, 18, 'planet18', 4600, 148.21, true, true),
+(19, 19, 19, 'planet19', 4600, 148.21, true, true),
+(20, 20, 20, 'planet20', 4600, 148.21, true, true);
+
+INSERT INTO moon VALUES 
+(1, 1, 'moon1', 4600, 148.21, true, true),
+(2, 2, 'moon2', 4600, 148.21, true, true),
+(3, 3, 'moon3', 4600, 148.21, true, true),
+(4, 4, 'moon4', 4600, 148.21, true, true),
+(5, 5, 'moon5', 4600, 148.21, true, true),
+(6, 6, 'moon6', 4600, 148.21, true, true),
+(7, 7, 'moon7', 4600, 148.21, true, true),
+(8, 8, 'moon8', 4600, 148.21, true, true),
+(9, 9, 'moon9', 4600, 148.21, true, true),
+(10, 10, 'moon10', 4600, 148.21, true, true),
+(11, 11, 'moon11', 4600, 148.21, true, true),
+(12, 12, 'moon12', 4600, 148.21, true, true),
+(13, 13, 'moon13', 4600, 148.21, true, true),
+(14, 14, 'moon14', 4600, 148.21, true, true),
+(15, 15, 'moon15', 4600, 148.21, true, true),
+(16, 16, 'moon16', 4600, 148.21, true, true),
+(17, 17, 'moon17', 4600, 148.21, true, true),
+(18, 18, 'moon18', 4600, 148.21, true, true),
+(19, 19, 'moon19', 4600, 148.21, true, true),
+(20, 20, 'moon20', 4600, 148.21, true, true);
+
+INSERT INTO galaxy_info VALUES
+(1, 1, 'galaxy_info1', 'lorem impsum'),
+(2, 2, 'galaxy_info2', 'lorem impsum'),
+(3, 3, 'galaxy_info3', 'lorem impsum'),
+(4, 4, 'galaxy_info', 'lorem impsum'),
+(5, 5, 'galaxy_info5', 'lorem impsum'),
+(6, 6, 'galaxy_info6', 'lorem impsum'),
+(7, 7, 'galaxy_info7', 'lorem impsum'),
+(8, 8, 'galaxy_info8', 'lorem impsum'),
+(9, 9, 'galaxy_info9', 'lorem impsum'),
+(10, 10, 'galaxy_info10', 'lorem impsum'),
+(11, 11, 'galaxy_info11', 'lorem impsum'),
+(12, 12, 'galaxy_info12', 'lorem impsum'),
+(13, 13, 'galaxy_info13', 'lorem impsum'),
+(14, 14, 'galaxy_info14', 'lorem impsum'),
+(15, 15, 'galaxy_info15', 'lorem impsum'),
+(16, 16, 'galaxy_info16', 'lorem impsum'),
+(17, 17, 'galaxy_info17', 'lorem impsum'),
+(18, 18, 'galaxy_info18', 'lorem impsum'),
+(19, 19, 'galaxy_info19', 'lorem impsum'),
+(20, 20, 'galaxy_info20', 'lorem impsum');
+
+INSERT INTO star_info VALUES
+(1, 1, 'star_info1', 'lorem impsum'),
+(2, 2, 'star_info2', 'lorem impsum'),
+(3, 3, 'star_info3', 'lorem impsum'),
+(4, 4, 'star_info4', 'lorem impsum'),
+(5, 5, 'star_info5', 'lorem impsum'),
+(6, 6, 'star_info6', 'lorem impsum'),
+(7, 7, 'star_info7', 'lorem impsum'),
+(8, 8, 'star_info8', 'lorem impsum'),
+(9, 9, 'star_info9', 'lorem impsum'),
+(10, 10, 'star_info10', 'lorem impsum'),
+(11, 11, 'star_info11', 'lorem impsum'),
+(12, 12, 'star_info12', 'lorem impsum'),
+(13, 13, 'star_info13', 'lorem impsum'),
+(14, 14, 'star_info14', 'lorem impsum'),
+(15, 15, 'star_info15', 'lorem impsum'),
+(16, 16, 'star_info16', 'lorem impsum'),
+(17, 17, 'star_info17', 'lorem impsum'),
+(18, 18, 'star_info18', 'lorem impsum'),
+(19, 19, 'star_info19', 'lorem impsum'),
+(20, 20, 'star_info20', 'lorem impsum');
+
+INSERT INTO planet_info VALUES
+(1, 1, 'planet_info1', 'lorem impsum'),
+(2, 2, 'planet_info2', 'lorem impsum'),
+(3, 3, 'planet_info3', 'lorem impsum'),
+(4, 4, 'planet_info4', 'lorem impsum'),
+(5, 5, 'planet_info5', 'lorem impsum'),
+(6, 6, 'planet_info6', 'lorem impsum'),
+(7, 7, 'planet_info7', 'lorem impsum'),
+(8, 8, 'planet_info8', 'lorem impsum'),
+(9, 9, 'planet_info9', 'lorem impsum'),
+(10, 10, 'planet_info10', 'lorem impsum'),
+(11, 11, 'planet_info11', 'lorem impsum'),
+(12, 12, 'planet_info12', 'lorem impsum'),
+(13, 13, 'planet_info13', 'lorem impsum'),
+(14, 14, 'planet_info14', 'lorem impsum'),
+(15, 15, 'planet_info15', 'lorem impsum'),
+(16, 16, 'planet_info16', 'lorem impsum'),
+(17, 17, 'planet_info17', 'lorem impsum'),
+(18, 18, 'planet_info18', 'lorem impsum'),
+(19, 19, 'planet_info19', 'lorem impsum'),
+(20, 20, 'planet_info20', 'lorem impsum');
+
+INSERT INTO moon_info VALUES
+(1, 1, 'moon_info1', 'lorem impsum'),
+(2, 2, 'moon_info2', 'lorem impsum'),
+(3, 3, 'moon_info3', 'lorem impsum'),
+(4, 4, 'moon_info4', 'lorem impsum'),
+(5, 5, 'moon_info5', 'lorem impsum'),
+(6, 6, 'moon_info6', 'lorem impsum'),
+(7, 7, 'moon_info7', 'lorem impsum'),
+(8, 8, 'moon_info8', 'lorem impsum'),
+(9, 9, 'moon_info9', 'lorem impsum'),
+(10, 10, 'moon_info10', 'lorem impsum'),
+(11, 11, 'moon_info11', 'lorem impsum'),
+(12, 12, 'moon_info12', 'lorem impsum'),
+(13, 13, 'moon_info13', 'lorem impsum'),
+(14, 14, 'moon_info14', 'lorem impsum'),
+(15, 15, 'moon_info15', 'lorem impsum'),
+(16, 16, 'moon_info16', 'lorem impsum'),
+(17, 17, 'moon_info17', 'lorem impsum'),
+(18, 18, 'moon_info18', 'lorem impsum'),
+(19, 19, 'moon_info19', 'lorem impsum'),
+(20, 20, 'moon_info20', 'lorem impsum');
 
 ------------------------------------------------------------
 4. Primary Key and Foreign Key assignment
 ------------------------------------------------------------
-ALTER TABLE galaxy ADD PRIMARY KEY(galaxy_id)
-ALTER TABLE star ADD PRIMARY KEY(star_id)
-ALTER TABLE planet ADD PRIMARY KEY(planet_id)
-ALTER TABLE moon ADD PRIMARY KEY(moon_id)
-ALTER TABLE more_info ADD PRIMARY KEY(more_info_id)
+ALTER TABLE galaxy ADD PRIMARY KEY(galaxy_id);
+ALTER TABLE star ADD PRIMARY KEY(star_id);
+ALTER TABLE planet ADD PRIMARY KEY(planet_id);
+ALTER TABLE moon ADD PRIMARY KEY(moon_id);
+ALTER TABLE galaxy_info ADD PRIMARY KEY(galaxy_info_id);
+ALTER TABLE star_info ADD PRIMARY KEY(star_info_id);
+ALTER TABLE planet_info ADD PRIMARY KEY(planet_info_id);
+ALTER TABLE moon_info ADD PRIMARY KEY(moon_info_id);
 
-ALTER TABLE galaxy ADD FOREIGN KEY(star_id) REFERENCES star(star_id)
-ALTER TABLE star ADD FOREIGN KEY(galaxy_id) REFERENCES galaxy(galaxy_id)
-ALTER TABLE star ADD FOREIGN KEY(planet_id) REFERENCES planet(planet_id)
-ALTER TABLE planet ADD FOREIGN KEY(star_id) REFERENCES star(star_id)
-ALTER TABLE planet ADD FOREIGN KEY(moon_id) REFERENCES moon(moon_id)
-ALTER TABLE moon ADD FOREIGN KEY(planet_id) REFERENCES planet(planet_id)
+ALTER TABLE galaxy ADD FOREIGN KEY(star_id) REFERENCES star(star_id);
+ALTER TABLE star ADD FOREIGN KEY(galaxy_id) REFERENCES galaxy(galaxy_id);
+ALTER TABLE star ADD FOREIGN KEY(planet_id) REFERENCES planet(planet_id);
+ALTER TABLE planet ADD FOREIGN KEY(star_id) REFERENCES star(star_id);
+ALTER TABLE planet ADD FOREIGN KEY(moon_id) REFERENCES moon(moon_id);
+ALTER TABLE moon ADD FOREIGN KEY(planet_id) REFERENCES planet(planet_id);
+
+ALTER TABLE galaxy_info ADD FOREIGN KEY(galaxy_id) REFERENCES galaxy(galaxy_id);
+ALTER TABLE star_info ADD FOREIGN KEY(star_id) REFERENCES star(star_id);
+ALTER TABLE planet_info ADD FOREIGN KEY(planet_id) REFERENCES planet(planet_id);
+ALTER TABLE moon_info ADD FOREIGN KEY(moon_id) REFERENCES moon(moon_id);
 
 ------------------------------------------------------------
 5. Compact sql db queries into universe.sql file
 ------------------------------------------------------------
-pg_dump -cC --inserts -U freecodecamp universe > universe.sql
+pg_dump -cC --inserts -U freecodecamp universe > universe.sql;
